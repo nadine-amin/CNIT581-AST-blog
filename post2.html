@@ -45,9 +45,9 @@
                 <div class="col-md-10 col-lg-8 col-xl-7">
                     <div class="post-heading">
                         <h1>Week 8: Blog Post #2</h1>
-                        <h2 class="subheading">Project Proposal</h2>
+                        <h2 class="subheading">Project Introduction</h2>
                         <span class="meta">
-                            Posted by <a href="#">Yi</a> on October 12, 2022
+                            Posted by <a href="#">Nadine</a> on October 14, 2022
                         </span>
                     </div>
                 </div>
@@ -59,55 +59,128 @@
         <div class="container px-4 px-lg-5">
             <div class="row gx-4 gx-lg-5 justify-content-center">
                 <div class="col-md-10 col-lg-8 col-xl-7">
-                    <p><strong>Project Name:</strong> Lip-Speech to Text for the Hearing Impaired: Multi-Modal Approach
-                        Using Visual-and-Language Transformer</p>
-                    <p><strong>Keywords:</strong> Hearing Impaired, Lip Reading, Multi-modal Approach,
-                        Vision-and-Language Transformer, Assistive Technology</p>
-                    <p><strong>Abstract:</strong> One basic day-to-day activity that is posing real challenges to the
-                        hearing impaired is interpersonal communication. In communities without knowledge of sign
-                        language, the hearing impaired mainly rely on lip reading, which becomes really impractical
-                        whenever multi-tasking is needed. Consequently, we propose a visual-linguistic speech
+                    <h4><strong>Project Name</strong></h4> 
+                    <p>Lip-Speech to Text for the Hearing Impaired: Multi-Modal Approach Using Vision-and-Language Transformer</p>
+                    
+                    <h4><strong>Keywords</strong></h4> 
+                    <p>Hearing Impaired, Assistive Technology, Lip Reading, Multi-modal Approach, Vision-and-Language Transformer</p>
+                    
+                    <h4><strong>Abstract</strong></h4> 
+                    <p>One basic day-to-day activity that is posing real challenges to the hearing impaired is interpersonal communication. 
+                        In communities without knowledge of sign language, the hearing impaired mainly rely on lip reading, which becomes 
+                        really impractical whenever multi-tasking is needed. Consequently, we propose a visual-linguistic speech
                         recognition system that can automatically provide the hearing impaired with the text that is
                         being communicated to them. We deploy a minimal vision-and-language-transformer (ViLT) in order
                         to cut down on system computational complexity, thus making sure that the system is better
                         suited for the real-time application. We fine-tune the ViLT model on the MIRACL-VC1 dataset and
                         then evaluate its performance with an encoder-decoder based architecture as the baseline.</p>
-                    <p><strong>Motivation</strong></p>
+                    
+                    <h4><strong>Motivation</strong></h4> 
+                    <p> According to the World Health Organization, more than 1.5 billion people around the world 
+                        <a href="https://www.who.int/health-topics/hearing-loss#tab=tab_1">[1]</a> and 25% of people over 
+                        60 years old <a href="https://www.who.int/news-room/fact-sheets/detail/deafness-and-hearing-loss">[2]</a> 
+                        are living their lives with some sort of hearing loss. As aresult of such impairment, effective communication can 
+                        be a real problem faced by the hearing impaired. Although communication through sign language can be efficient, 
+                        its use is usually restricted to deaf signing communities <a href="https://dl.acm.org/doi/10.1145/3373625.3417300">[3]</a>.
+                        Consequently, people with hearing disabilities usually heavily rely on lip reading on a daily basis 
+                        <a href="https://dl.acm.org/doi/10.1145/3373625.3417300">[3]</a>. However, taking a classroom environment 
+                        as one of many examples, the hearing impaired would have to closely focus on lip reading while still having 
+                        to carry out other tasks like notetaking <a href="https://www.researchgate.net/publication/342662856_Development_assistive_technology_for_students_with_hearing_impairments">[4]</a>.
+                        Owing to such impracticality, a tool that is able to help the hearing impaired by automatically reading lips 
+                        for them and providing them with the spoken words in text can be really beneficial. With the availability of 
+                        more than one input modality which such a tool can rely on to provide the output text, it only makes sense that a 
+                        multi-modal approach to lip reading will boost the overall system performance. In addition, since this automatic 
+                        lip-to-text conversion needs to be efficiently performed in real-time to be of any real use, the less computationally 
+                        expensive a model is, the better suited it becomes for such a time-sensitive application. </p>
+                    <p> In this paper, we propose using the Vision-and-Language transformer, a minimal vision-and-language pre-training model 
+                        <a href="https://arxiv.org/abs/2102.03334">[5]</a>, in a visual-linguistic speech recognition system performing multimodal 
+                        lip reading for the hearing impaired. It is worth noting that we are focusing on evaluating the model performance through training and testing it
+                        on a publicly available dataset. We are not concerned with how the input data is obtained or output is displayed in real-time.</p>
+                    <p> The following GIF summarizes our motivation for this project. </p>
                     <a href="#">
-                        <img class="img-responsive" src="assets/img/motivation.png" alt="">
+                        <img class="img-responsive" src="assets/img/motivation.gif" alt="Image" width="700">
                     </a>
-                    <p><strong>Related Work: Traditional Lip Reading</strong></p>
-                    <a href="#">
-                        <img class="img-responsive" src="assets/img/lit1.png" alt="">
-                    </a>
-                    <p><strong>Related Work: Deep Lip Reading</strong></p>
-                    <a href="#">
-                        <img class="img-responsive" src="assets/img/lit2.png" alt="">
-                    </a>
-                    <p><strong>Vision-and-Language Transformer</strong></p>
-                    <a href="#">
-                        <img class="img-responsive" src="assets/img/vilt.png" alt="">
-                    </a>
-                    <p><strong>Dataset: MIRACL-VC1</strong></p>
-                    <a href="#">
-                        <img class="img-responsive" src="assets/img/miracl-vc1.png" alt="">
-                    </a>
-                    <p><strong>Proposed Method</strong></p>
-                    <a href="#">
-                        <img class="img-responsive" src="assets/img/proposed_method.png" alt="">
-                    </a>
-                    <p><strong>Equipment List</strong>
+                    <p> </p>
+                    
+                    <h4><strong>Literature Review</strong></h4>
+                    <p><strong>Traditional Lip Reading <a href="https://ieeexplore.ieee.org/stamp/stamp.jsp?arnumber=9252931">[6]</a>: </strong> 
+                        The following image summarizes the four main steps of traditional lip reading: 
                         <ul>
-                            <li>Computer</li>
-                            <li>Smartphone</li>
-                            <li>Google Colab</li>
+                            <li>Lip Detection and Extraction: using methods like color information-based or face structure-based ones.</li>
+                            <li>Feature Extraction: using pixel-based appraches, shape-based approaches, or mixed approaches. </li>
+                            <li>Feature Transformation: using methods like Principal Component Analysis (PCA) or Linear Discriminant Analysis (LDA).</li>
+                            <li>Classification: using models like a Time-Delay Neural Network (TDNN), a Support Vector Machine (SVM), or a Hidden Markov Model (HMM).</li>
                         </ul>
                     </p>
-                    <p><strong>Time Plan</strong></p>
                     <a href="#">
-                        <img class="img-responsive" src="assets/img/timeplan.png" alt="">
+                        <img class="img-responsive" src="assets/img/lit1.png" alt="Image" width="700">
                     </a>
-                    <p><a href="assets/proposal.pdf">Click Here</a> to see the full proposal presentation slides!</p>
+                    
+                    <p><strong>Deep Lip Reading <a href="https://ieeexplore.ieee.org/stamp/stamp.jsp?arnumber=9252931">[6]</a>: </strong> 
+                        The following image summarizes the three main steps of deep lip reading: <ul>
+                            <li>Lip Detection and Extraction: using the previously mentioned traditional ways of region extraction or pre-trained models that 
+                                can detect the face and its landmarks.</li>
+                            <li>Front-End Deep Neural Network: like convolutional neural networks (CNN) with their different configurations, or other networks like
+                                feed-forward neural network (FNN) and the autoencoder.</li>
+                            <li>Back-End Neural Network: like recurrent neural networks with their different versions (bi-directional long short-term memory 
+                                (Bi-LSTM) network or bi-directional gated recurrent unit (Bi-GRU)), or other networks like temporal convolutional network (TCN) and the 
+                                attention-based transformers.</li>
+                        </ul>
+                    </p>
+                    <a href="#">
+                        <img class="img-responsive" src="assets/img/lit2.png" alt="Image" width="700">
+                    </a>
+            
+                    <p><strong>Multi-Modal Lip Reading:</strong> Different modalities provide us with not only redundant information that can help 
+                        us more confidently arrive at conclusions, but more importantly complementary information that we would not have gained if we
+                        were relying on a single modality. Consequently, recent research in lip reading has been heavily focused on adopting multi-modal 
+                        approaches, like in <a href="https://ieeexplore.ieee.org/document/9385743">[7]</a>
+                            <a href="https://www.sciencedirect.com/science/article/pii/S2666307422000031">[8]</a>
+                            <a href="https://ieeexplore.ieee.org/document/9412817">[9]</a>
+                            <a href="https://arxiv.org/abs/2102.06657">[10]</a> and 
+                            <a href="https://arxiv.org/abs/2104.09482">[11]</a>. In such an approach, different modes of input are processed
+                        and exploited to boost the overall system performance <a href="https://arxiv.org/abs/2104.09482">[11]</a>. </p>
+                    
+                    <h4><strong>Targeted Gap</strong></h4>
+                    <p> To the best of the authors’ knowledge, all the approaches developed and adopted in the literature heavily rely 
+                        on computationally complex feature extraction from the visual input, which definitely
+                        affects the efficiency and speed of the overall system. Therefore,
+                        this is where the innovativeness of our proposed approach actually comes in. </p>
+            
+                    <h4><strong>Proposed Method</strong></h4>
+                    <p><strong>Dataset: </strong> In this project, MIRACL-VC1 <a href="https://link.springer.com/content/pdf/10.1007/978-3-319-11755-3_3.pdf">[12]</a> 
+                        will be used as the dataset that is recorded by Microsoft Kinect of 15 people each saying 10 words and 10 
+                        phrases 10 times, so there are 3,000 instances in this dataset. In this dataset, each instance is a string 
+                        of 640×480 pixel color and depth images. The following figure shows a image of an instance as an example.
+                        We will use only the color images and discard the depth part. </p>
+                    <a href="#">
+                        <img class="img-responsive" src="assets/img/dataset_image.png" alt="Image" width="700">
+                    </a>
+                    <p> The words and phrases in the dataset are listed in the following figure. </p>
+                    <a href="#">
+                        <img class="img-responsive" src="assets/img/dataset_table.png" alt="Image" width="700">
+                    </a>
+            
+                   <p><strong>Model: </strong> Our goal is to cut down on the computational complexity of the step of feature 
+                       extraction from the visual imput to achieve a reduced inference time. Consequently, we deploy the novel 
+                       model proposed by <a href="https://arxiv.org/abs/2102.03334">[5]</a> called Vision-and-Lanugage Transformer (ViLT), which does not require convolution 
+                       or region surpervision. Inspired by the idea of patch projection embedding introduced by <a href="https://paperswithcode.com/paper/an-image-is-worth-16x16-words-transformers-1">[13]</a> for Vision
+                       Transformer (ViT) on image classification task, <a href="https://arxiv.org/abs/2102.03334">[5]</a> use a 32 x 32 patch projection as visual embedder and 
+                       combine it with the word embedding to pass to the transformer encoder. The detailed architecture of ViLT 
+                       is demonstrated in the following figure. </p>
+                    <a href="#">
+                        <img class="img-responsive" src="assets/img/vilt.png" alt="Image" width="700">
+                   </a>
+                    <p> ViLT was pre-trained on four datasets: Microsoft COCO <a href="https://arxiv.org/abs/1504.00325">[14]</a>, Visual Genome
+                       <a href="https://arxiv.org/abs/1602.07332">[15]</a>, SBU Captions <a href="https://dl.acm.org/doi/10.5555/2986459.2986587">[16]</a>, 
+                       and Google Conceptual Captions <a href="https://aclanthology.org/P18-1238/">[17]</a>, on two tasks, image text matching and masked language modeling. </p>
+                       
+                   <p><strong>Experiment Design: </strong> We will use MIRACL-VC1 to fine-tune the pre-trained ViLT and compare 
+                       performance with a traditional encoder decoder based architecture baseline (CNN encoder with LSTM decoder). For each word or
+                       phrase per speaker, eight instances will be used for fine-tuning, and two will be used for testing. If time permits, we 
+                       would also record some new instances to test how our proposed model performs with new speakers. </p>  
+                     
+                    <p><a href="assets/proposal.pdf">Click Here</a> to see our full proposal presentation slides!</p>
                 </div>
             </div>
         </div>

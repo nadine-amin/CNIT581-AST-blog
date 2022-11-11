@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>Fall 2022 Purdue CNIT 581-AST Project</title>
+    <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+    <!-- Font Awesome icons (free version)-->
+    <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
+    <!-- Google fonts-->
+    <link href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" rel="stylesheet"
+        type="text/css" />
+    <link
+        href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800"
+        rel="stylesheet" type="text/css" />
+    <!-- Core theme CSS (includes Bootstrap)-->
+    <link href="css/styles.css" rel="stylesheet" />
+</head>
+
+<body>
+    <!-- Navigation-->
+    <nav class="navbar navbar-expand-lg navbar-light" id="mainNav">
+        <div class="container px-4 px-lg-5">
+            <a class="navbar-brand" href="index.html">Purdue CNIT 581-AST / Fall 2022</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive"
+                aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                Menu
+                <i class="fas fa-bars"></i>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav ms-auto py-4 py-lg-0">
+                    <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="index.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="about.html">About</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <!-- Page Header-->
+    <header class="masthead" style="background-image: url('assets/img/home-bg.jpg')">
+        <div class="container position-relative px-4 px-lg-5">
+            <div class="row gx-4 gx-lg-5 justify-content-center">
+                <div class="col-md-10 col-lg-8 col-xl-7">
+                    <div class="post-heading">
+                        <h1>Week 12: Blog Post #4</h1>
+                        <h2 class="subheading">Model Architecture</h2>
+                        <span class="meta">
+                            Posted by <a href="#">Yi</a> on November 10, 2022
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- Post Content-->
+    <article class="mb-4">
+        <div class="container px-4 px-lg-5">
+            <div class="row gx-4 gx-lg-5 justify-content-center">
+                <div class="col-md-10 col-lg-8 col-xl-7">
+                    <h2>Vision and Language Transformer (ViLT)</h2>
+                    <p> The goal of this project is to explore the potential of multimodal model on lip reading task. <a
+                            href="https://arxiv.org/abs/2102.03334">Vision and Language Transformer (ViLT)</a>,
+                        which is the simplest architecture by far for a vision-and-language model as it commissions the
+                        transformer
+                        module to extract and process visual features in place of a separate deep visual embedder, will
+                        be deployed for this project.
+                        The design of ViLT doesn't have any convolution or regional supervision which leads to
+                        significant runtime and parameter efficiency compared to other models.
+                        The detailed architecture of ViLT is demonstrated in the following figure.
+                    </p>
+                    <a href="#">
+                        <img class="img-responsive" src="assets/img/vilt.png" alt="Image" width="700">
+                    </a>
+                    <h2><br>Model Details</h2>
+                    This section will discuss the implementation details and experiment setup of ViLT for this project.
+                    <h3><br>Word Embedder: BERT Tokenizer </h3>
+                    <p> BERT uses what is called a WordPiece tokenizer. It works by splitting words either into the full
+                        forms (e.g., one word becomes one token) or into word pieces — where one word can be broken into
+                        multiple tokens. <br>For example: </p>
+                    <table style="width:100%; border: 1px solid black; border-collapse: collapse;">
+                        <tr style="border: 1px solid black; border-collapse: collapse;">
+                            <th>Word</th>
+                            <th>Token(s)</th>
+                        </tr>
+                        <tr>
+                            <td>snow</td>
+                            <td>['snow']</td>
+                        </tr>
+                        <tr>
+                            <td>snowing</td>
+                            <td>['snow', '##ing']</td>
+                        </tr>
+                        <tr>
+                            <td>snowboard</td>
+                            <td>['snow', '##board']</td>
+                        </tr>
+                        <tr>
+                            <td>snowboarding</td>
+                            <td>['snow', '##board', '##ing']</td>
+                        </tr>
+                    </table>
+                    <h3><br>Visual Embedder: Patch Projection </h3>
+                    <p>The idea of patch projection was introduced by <a
+                            href="https://paperswithcode.com/paper/an-image-is-worth-16x16-words-transformers-1">Vision
+                            Transformer (ViT)</a>, ViLT use a 32 x 32 patch projection as visual embedder.</p>
+
+                    <h3><strong>Pre-trained Datasets: </strong></h3>
+                    <ul>
+                        <li><a href="https://arxiv.org/abs/1504.00325">Microsoft COCO</a></li>
+                        <li><a href="https://arxiv.org/abs/1602.07332">Visual Genome</a></li>
+                        <li><a href="https://dl.acm.org/doi/10.5555/2986459.2986587">SBU Captions</a></li>
+                        <li><a href="https://aclanthology.org/P18-1238/">Google Conceptual Captions</a></li>
+                    </ul>
+
+                    <h3><strong>Pre-trained Tasks: </strong></h3>
+                    <ul>
+                        <li>Image Text Matching</li>
+                        <li>Masked Language Modeling</li>
+                        <li>Word Patch Alignment</li>
+                    </ul>
+
+                    <h3>Dataset: MIRACL-VC1</h3>
+                    <p>MIRACL-VC1 will be used as the dataset that is recorded by Microsoft Kinect of 15 people each
+                        saying 10 words and 10 phrases 10 times, so there are 3,000 instances in this dataset. In this
+                        dataset, each instance is a string of 640×480 pixel color and depth images.</p>
+                    <a href="#">
+                        <img class="img-responsive" src="assets/img/dataset_table.png" alt="Image">
+                    </a>
+
+                    <h3><br>Loss Function: Cross Entropy Loss</h3>
+                    <p>Cross-entropy loss, or log loss, measures the performance of a classification model whose output
+                        is a probability value between 0 and 1. Cross-entropy loss increases as the predicted
+                        probability diverges from the actual label.</p>
+                    <a href="#">
+                        <img class="img-responsive" src="assets/img/cross_entropy.png" alt="Image">
+                    </a>
+                    <ul>
+                        <li>M - number of classes (dog, cat, elephant)</li>
+                        <li>log - the natural log</li>
+                        <li>y - binary indicator (0 or 1) if class label (c) is the correct classification for
+                            observation (o)</li>
+                        <li>p - predicted probability observation (o) is of class (c)</li>
+                    </ul>
+                    <h3>Experiment Design:</h3>
+                    <p> We will use MIRACL-VC1 to fine-tune the pre-trained ViLT and
+                        compare performance with a traditional encoder decoder based architecture baseline (CNN encoder
+                        with
+                        LSTM decoder). For each word or phrase per speaker, eight instances will be used for
+                        fine-tuning, and two will be used for
+                        testing. If time permits, we would also record some new instances to test how our proposed model
+                        performs with new speakers.
+                    </p>
+
+                </div>
+            </div>
+        </div>
+    </article>
+    <!-- Footer-->
+    <footer class="border-top">
+        <div class="container px-4 px-lg-5">
+            <div class="row gx-4 gx-lg-5 justify-content-center">
+                <div class="col-md-10 col-lg-8 col-xl-7">
+                    <ul class="list-inline text-center">
+                        <li class="list-inline-item">
+                            <a href="#!">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fas fa-circle fa-stack-2x"></i>
+                                    <i class="fab fa-twitter fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </li>
+                        <li class="list-inline-item">
+                            <a href="#!">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fas fa-circle fa-stack-2x"></i>
+                                    <i class="fab fa-facebook-f fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </li>
+                        <li class="list-inline-item">
+                            <a href="#!">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fas fa-circle fa-stack-2x"></i>
+                                    <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </li>
+                    </ul>
+                    <div class="small text-center text-muted fst-italic">Copyright &copy; 2022</div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- Bootstrap core JS-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Core theme JS-->
+    <script src="js/scripts.js"></script>
+</body>
+
+</html>

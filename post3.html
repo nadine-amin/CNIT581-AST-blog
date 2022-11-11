@@ -39,38 +39,66 @@
         </div>
     </nav>
     <!-- Page Header-->
-    <header class="masthead" style="background-image: url('assets/img/about-bg.jpg')">
+    <header class="masthead" style="background-image: url('assets/img/home-bg.jpg')">
         <div class="container position-relative px-4 px-lg-5">
             <div class="row gx-4 gx-lg-5 justify-content-center">
                 <div class="col-md-10 col-lg-8 col-xl-7">
-                    <div class="page-heading">
-                        <h1>About Team</h1>
-                        <span class="subheading">This is who we are.</span>
+                    <div class="post-heading">
+                        <h1>Week 10: Blog Post #3</h1>
+                        <h2 class="subheading">Data Prepsocessing & Augmentation</h2>
+                        <span class="meta">
+                            Posted by <a href="#">Nadine</a> on October 27, 2022
+                        </span>
                     </div>
                 </div>
             </div>
         </div>
     </header>
-    <!-- Main Content-->
-    <main class="mb-4">
+    <!-- Post Content-->
+    <article class="mb-4">
         <div class="container px-4 px-lg-5">
             <div class="row gx-4 gx-lg-5 justify-content-center">
                 <div class="col-md-10 col-lg-8 col-xl-7">
-                    <p><b>Nadine Amin</b>
-                        </br>
-                        Ph.D. student in Computer and Information Technology at Purdue University</p>
-
-                    <p><b>Srushti Vichare</b>
-                        </br>
-                        M.S. student in Engineering Technology at Purdue University</p>
-
-                    <p><b>Yi Zhang</b>
-                        </br>
-                        Ph.D. student in Computer and Information Technology at Purdue University</p>
+                    <h4><strong>Data Preprocessing</strong></h4> 
+                    <p>Before we can configure and train our model, we need to appropriately preprocess the data to be ready for being inputted into our model.
+                        Since images in our dataset are characterized by having a lot of background that is not really relevant to our task of lip-reading, 
+                        an appropriate preprocessing step was to crop out such unneccessary regions. This saves our model meaningless computations that it 
+                        would otherwise have to carry out. 
+                    </p> 
+                    
+                    <p> Following <a href="http://cs231n.stanford.edu/reports/2016/pdfs/217_Report.pdf">[1]</a> and 
+                        <a href="http://cs231n.stanford.edu/reports/2017/pdfs/227.pdf">[2]</a>, we used OpenCV's face detection module 
+                        <a href="https://docs.opencv.org/3.4/db/d28/tutorial_cascade_classifier.html">[3]</a> which gave us back the coordinates of a 
+                        bounding box of the face in each image. We then accordingly cropped the images restricting the size to 90x90 pixels for the sake 
+                        of consistency across all images.
+                    </p>
+                    
+                    <p> The following figure shows an example image before and after cropping.</p>
+                    
+                    <center> <img class="img-responsive" src="assets/img/data_preprocessing.png" alt="Image" width="600"> </center>
+                    <p></p>
+                    
+                    
+                    <h4><strong>Data Augmentation</strong></h4> 
+                    <p> Since our dataset contains only 3,000 instances, we perform data augmentation in order to artificially increase the size of our data. 
+                        We tripled the size of our dataset by carrying out the following two modifications on each image, following 
+                        <a href="http://cs231n.stanford.edu/reports/2016/pdfs/217_Report.pdf">[1]</a>:
+                        <ul>
+                            <li>Instead of cropping the original image only once using the exact coordinates of the face bounding box, we crop it
+                                twice. For the second crop, we slightly shift the bounding box (the crop region) by a random number of pixels horizontally
+                                and vertically.</li>
+                            <li>After the original image is cropped, we create a new intensity-jittered instance of it. We randomly increase or decrease the 
+                                pixel values of the cropped image by a small amount.</li>
+                        </ul>
+                    </p>                  
+                   
+                    <p> The following GIF shows an example of an original image and the three versions resulting from it.</p>
+                
+                    <img class="img-responsive" src="assets/img/data_augmentation.gif" alt="Image" width="700">
                 </div>
             </div>
         </div>
-    </main>
+    </article>
     <!-- Footer-->
     <footer class="border-top">
         <div class="container px-4 px-lg-5">
