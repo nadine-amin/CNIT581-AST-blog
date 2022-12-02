@@ -60,7 +60,7 @@
             <div class="row gx-4 gx-lg-5 justify-content-center">
                 <div class="col-md-10 col-lg-8 col-xl-7">
                     <p>In this blog update, we will talk about the last data preprocessing step that we did on our dataset instances, the zero-shot results of the 
-                      vision-and-language-transformer (ViLT) on our dataset, and what we are currently working on.
+                      vision-and-language-transformer (ViLT) on our dataset, and what we are working on next.
                     </p>
                     <h4><strong>Further Data Preprocessing</strong></h4> 
                     <p>In <a href="https://nadine-amin.github.io/CNIT581-AST-blog/post3.html">blog post #3</a>, we demonstrated how we preprocessed our training and testing data 
@@ -69,7 +69,8 @@
                       data into the ViLT model, we would like to have one input image per instance. Consequently, we opted for concatenating, using 
                       <a href="https://note.nkmk.me/en/python-opencv-hconcat-vconcat-np-tile/">OpenCV</a>, all images resembling a certain utterance into one bigger image,
                       transforming the temporal infromation into spacial one <a href="http://cs231n.stanford.edu/reports/2016/pdfs/217_Report.pdf">[1]</a>.
-                      
+                    </p>
+                    <p></p>                      
                       Since different utterances have different lengths and different participants have different speaking speeds, not all instances are actually
                       made up of the same number of images. More specifically, the shortest instance is made up of just 4 images, while the longest one is 27 
                       images <a href="http://cs231n.stanford.edu/reports/2017/pdfs/227.pdf">[2]</a>. Following <a href="http://cs231n.stanford.edu/reports/2016/pdfs/217_Report.pdf">[1]</a>, 
@@ -79,7 +80,7 @@
                       filling the empty slots with the nearest image. More specifically, if the original sequence (orig_seq) has a length of orig_len, then the ith image 
                       in the stretched sequence (stretch_seq) is given by the following equation adapted from <a href="http://cs231n.stanford.edu/reports/2016/pdfs/217_Report.pdf">[1]</a>.
                     </p>
-                    <center> <img class="img-responsive" src="assets/img/stretch_eq.png" alt="Image" width="700"> </center>
+                    <center> <img class="img-responsive" src="assets/img/stretch_eq.png" alt="Image" width="500"> </center>
                     <p></p>
                   
                     <p> The figure below shows a sequence of images resembling a single data instance before and after this preprocessing step of stretching and 
@@ -90,12 +91,26 @@
                     
                     <h4><strong>Zero-Shot Results</strong></h4> 
                     <p> Before fine-tuning the ViLT model on our fine-tuning dataset and evaluating its performance on our testing dataset, we wanted to examine its 
-                      zero-shot performance (i.e. without fine-tuning). Consequently, we tested the pre-trained ViLT model on our testing dataset (1800 intances). 
-                    </p>                  
-                   
-                    <p> The following figure.</p>
+                      zero-shot performance (before fine-tuning). Zero-shot evaluation is basically when a pre-trained model is tested on a dataset different than 
+                        the one that has been used during its training. Consequently, we evaluated the classification performance of the pre-trained ViLT model 
+                        on our testing dataset (1800 intances) in a multi-class classification problem with 20 classes (correspoding to the 20 different utterances in
+                        our dataset). The classificaiton accuracy was found to be 4.83% and the below figure demonstrates the resulting confusion matrix.                  
+                    </p> 
+                    <img class="img-responsive" src="assets/img/zero_shot_conf_mat.png" alt="Image" width="700">
+                    <p></p>
                 
-                    <img class="img-responsive" src="assets/img/data_augmentation.gif" alt="Image" width="700">
+                    <p> As can be seen from the confusion matrix, either the label "Next" or "How are you?" was predicted for almost all of our testing instances. 
+                        A couple of instances were instead predicted as "I am sorry." or "Good bye.". With a total of 20 classes, the zero-shot accuracy is actually 
+                        equivalent to that of a random guesser (5%), which is definitely a really low accuracy.</p>
+                    <p></p>
+                    
+                    <h4><strong>Next Steps</strong></h4> 
+                    <p> We are currently working on fine-tuning the pre-trained ViLT model on our fine-tuning dataset so that we can then re-evaluate its performance
+                        on our testing dataset. With such a low zero-shot accuracy and small fine-tuning dataset, we suspect that the accuracy after fine-tuning 
+                        would not really go up that much. After fine-tuning and evaluating the ViLT model, we plan on documenting why we think the ViLT model might be 
+                        perfomrning poorly, and what are possible future directions that we believe might be worth pursuing.
+                    </p>
+                                
                 </div>
             </div>
         </div>
