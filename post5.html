@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>Fall 2022 Purdue CNIT 581-AST Project</title>
+    <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+    <!-- Font Awesome icons (free version)-->
+    <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
+    <!-- Google fonts-->
+    <link href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" rel="stylesheet"
+        type="text/css" />
+    <link
+        href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800"
+        rel="stylesheet" type="text/css" />
+    <!-- Core theme CSS (includes Bootstrap)-->
+    <link href="css/styles.css" rel="stylesheet" />
+</head>
+
+<body>
+    <!-- Navigation-->
+    <nav class="navbar navbar-expand-lg navbar-light" id="mainNav">
+        <div class="container px-4 px-lg-5">
+            <a class="navbar-brand" href="index.html">Purdue CNIT 581-AST / Fall 2022</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive"
+                aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                Menu
+                <i class="fas fa-bars"></i>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav ms-auto py-4 py-lg-0">
+                    <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="index.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="about.html">About</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <!-- Page Header-->
+    <header class="masthead" style="background-image: url('assets/img/home-bg.jpg')">
+        <div class="container position-relative px-4 px-lg-5">
+            <div class="row gx-4 gx-lg-5 justify-content-center">
+                <div class="col-md-10 col-lg-8 col-xl-7">
+                    <div class="post-heading">
+                        <h1>Week 15: Blog Post #5</h1>
+                        <h2 class="subheading">Further Preprocessing & Zero-Shot Results</h2>
+                        <span class="meta">
+                            Posted by <a href="#">Nadine</a> on December 2, 2022
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+<!-- Post Content-->
+    <article class="mb-4">
+        <div class="container px-4 px-lg-5">
+            <div class="row gx-4 gx-lg-5 justify-content-center">
+                <div class="col-md-10 col-lg-8 col-xl-7">
+                    <p>In this blog update, we will talk about the last data preprocessing step that we did on our dataset instances, the zero-shot results of the 
+                      vision-and-language-transformer (ViLT) on our dataset, and what we are currently working on.
+                    </p>
+                    <h4><strong>Further Data Preprocessing</strong></h4> 
+                    <p>In <a href="https://nadine-amin.github.io/CNIT581-AST-blog/post3.html">blog post #3</a>, we demonstrated how we preprocessed our training and testing data 
+                      by cropping each image such that the output is a 90x90 pixel image of just the face. After this step, each instance in our dataset is made up of several 
+                      90x90 pixel images of a certain participant while they are speaking out a certain utterance, one image per point in time. However, in order to input our 
+                      data into the ViLT model, we would like to have one input image per instance. Consequently, we opted for concatenating, using 
+                      <a href="https://note.nkmk.me/en/python-opencv-hconcat-vconcat-np-tile/">OpenCV</a>, all images resembling a certain utterance into one bigger image,
+                      transforming the temporal infromation into spacial one <a href="http://cs231n.stanford.edu/reports/2016/pdfs/217_Report.pdf">[1]</a>.
+                      
+                      Since different utterances have different lengths and different participants have different speaking speeds, not all instances are actually
+                      made up of the same number of images. More specifically, the shortest instance is made up of just 4 images, while the longest one is 27 
+                      images <a href="http://cs231n.stanford.edu/reports/2017/pdfs/227.pdf">[2]</a>. Following <a href="http://cs231n.stanford.edu/reports/2016/pdfs/217_Report.pdf">[1]</a>, 
+                      our final concatenated image for each instance is made up of 5x5 of the smaller images (90x90 pixels each). Hence, the final dimensions of each 
+                      concatenated image is 450x450 pixels. For instances which are shorter than 25 images, instead of appending black images (pixel values of 0) at the 
+                      end of the sequence, we follow <a href="http://cs231n.stanford.edu/reports/2016/pdfs/217_Report.pdf">[1]</a> and strech out the sequence of images 
+                      filling the empty slots with the nearest image. More specifically, if the original sequence (orig_seq) has a length of orig_len, then the ith image 
+                      in the stretched sequence (stretch_seq) is given by the following equation adapted from <a href="http://cs231n.stanford.edu/reports/2016/pdfs/217_Report.pdf">[1]</a>.
+                    </p>
+                    <center> <img class="img-responsive" src="assets/img/stretch_eq.png" alt="Image" width="700"> </center>
+                    <p></p>
+                  
+                    <p> The figure below shows a sequence of images resembling a single data instance before and after this preprocessing step of stretching and 
+                      concatenating. After this step, our data is now ready to be input into our model for fine-tuning and testing.
+                    </p> 
+                    <center> <img class="img-responsive" src="assets/img/stretch_concat_image.png" alt="Image" width="700"> </center>
+                    <p></p>
+                    
+                    <h4><strong>Zero-Shot Results</strong></h4> 
+                    <p> Before fine-tuning the ViLT model on our fine-tuning dataset and evaluating its performance on our testing dataset, we wanted to examine its 
+                      zero-shot performance (i.e. without fine-tuning). Consequently, we tested the pre-trained ViLT model on our testing dataset (1800 intances). 
+                    </p>                  
+                   
+                    <p> The following figure.</p>
+                
+                    <img class="img-responsive" src="assets/img/data_augmentation.gif" alt="Image" width="700">
+                </div>
+            </div>
+        </div>
+    </article>
+    <!-- Footer-->
+    <footer class="border-top">
+        <div class="container px-4 px-lg-5">
+            <div class="row gx-4 gx-lg-5 justify-content-center">
+                <div class="col-md-10 col-lg-8 col-xl-7">
+                    <ul class="list-inline text-center">
+                        <li class="list-inline-item">
+                            <a href="#!">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fas fa-circle fa-stack-2x"></i>
+                                    <i class="fab fa-twitter fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </li>
+                        <li class="list-inline-item">
+                            <a href="#!">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fas fa-circle fa-stack-2x"></i>
+                                    <i class="fab fa-facebook-f fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </li>
+                        <li class="list-inline-item">
+                            <a href="#!">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fas fa-circle fa-stack-2x"></i>
+                                    <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </li>
+                    </ul>
+                    <div class="small text-center text-muted fst-italic">Copyright &copy; 2022</div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- Bootstrap core JS-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Core theme JS-->
+    <script src="js/scripts.js"></script>
+</body>
+
+</html>
