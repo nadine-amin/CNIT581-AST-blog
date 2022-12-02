@@ -64,17 +64,17 @@
                     </p>
                     <h4><strong>Further Data Preprocessing</strong></h4> 
                     <p>In <a href="https://nadine-amin.github.io/CNIT581-AST-blog/post3.html">blog post #3</a>, we demonstrated how we preprocessed our training and testing data 
-                      by cropping each image such that the output is a 90x90 pixel image of just the face. After this step, each instance in our dataset is made up of several 
-                      90x90 pixel images of a certain participant while they are speaking out a certain utterance, one image per point in time. However, in order to input our 
+                      by cropping each image such that the output is a 90x90 pixel image of just the face. After this step, each instance in our dataset is made up of a sequence of
+                      several 90x90 pixel images of a certain participant while they are speaking out a certain utterance, one image per point in time. However, in order to input our 
                       data into the ViLT model, we would like to have one input image per instance. Consequently, we opted for concatenating, using 
                       <a href="https://note.nkmk.me/en/python-opencv-hconcat-vconcat-np-tile/">OpenCV</a>, all images resembling a certain utterance into one bigger image,
                       transforming the temporal infromation into spacial one <a href="http://cs231n.stanford.edu/reports/2016/pdfs/217_Report.pdf">[1]</a>.
                     </p>
-                    <p></p>                      
+                    <p>                      
                       Since different utterances have different lengths and different participants have different speaking speeds, not all instances are actually
-                      made up of the same number of images. More specifically, the shortest instance is made up of just 4 images, while the longest one is 27 
+                      made up of the same number of images. More specifically, the shortest instance is made up of just 4 images, while the longest one has 27 
                       images <a href="http://cs231n.stanford.edu/reports/2017/pdfs/227.pdf">[2]</a>. Following <a href="http://cs231n.stanford.edu/reports/2016/pdfs/217_Report.pdf">[1]</a>, 
-                      our final concatenated image for each instance is made up of 5x5 of the smaller images (90x90 pixels each). Hence, the final dimensions of each 
+                      our final concatenated image for each instance is made up of 5x5 smaller images (90x90 pixels each). Hence, the final dimensions of each 
                       concatenated image is 450x450 pixels. For instances which are shorter than 25 images, instead of appending black images (pixel values of 0) at the 
                       end of the sequence, we follow <a href="http://cs231n.stanford.edu/reports/2016/pdfs/217_Report.pdf">[1]</a> and strech out the sequence of images 
                       filling the empty slots with the nearest image. More specifically, if the original sequence (orig_seq) has a length of orig_len, then the ith image 
@@ -108,7 +108,7 @@
                     <p> We are currently working on fine-tuning the pre-trained ViLT model on our fine-tuning dataset so that we can then re-evaluate its performance
                         on our testing dataset. With such a low zero-shot accuracy and small fine-tuning dataset, we suspect that the accuracy after fine-tuning 
                         would not really go up that much. After fine-tuning and evaluating the ViLT model, we plan on documenting why we think the ViLT model might be 
-                        perfomrning poorly, and what are possible future directions that we believe might be worth pursuing.
+                        performing poorly, and what are possible future directions that we believe might be worth pursuing.
                     </p>
                                 
                 </div>
