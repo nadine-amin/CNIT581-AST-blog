@@ -59,32 +59,54 @@
         <div class="container px-4 px-lg-5">
             <div class="row gx-4 gx-lg-5 justify-content-center">
                 <div class="col-md-10 col-lg-8 col-xl-7">
-                    <p>In this last blog update, we will present and discuss the results of the vision-and-language transformer (ViLT) on our testing dataset, 
+                    <p>In this last blog update, we will present and discuss the fine-tuning results of the vision-and-language transformer (ViLT) on our testing dataset, 
                     compare it with our baselines, show our demo video, and finally conclude our project and highlight potential future directions.
                     </p>
                     <h4><strong>Fine-tuning Results</strong></h4> 
-                    <p> After presenting the zero-shot results of the ViLT model in the <a href="https://nadine-amin.github.io/CNIT581-AST-blog/post5.html">previous blog post #3</a>,
-                    </p> 
-                    
-                    <h4><strong>Zero-Shot Results</strong></h4> 
-                    <p> Before fine-tuning the ViLT model on our fine-tuning dataset and evaluating its performance on our testing dataset, we wanted to examine its 
-                      zero-shot performance (before fine-tuning). Zero-shot evaluation is basically when a pre-trained model is tested on a dataset different than 
-                        the one that has been used during its training. Consequently, we evaluated the classification performance of the pre-trained ViLT model 
-                        on our testing dataset (1800 intances) in a multi-class classification problem with 20 classes (correspoding to the 20 different utterances in
-                        our dataset). The classificaiton accuracy was found to be 4.83% and the below figure demonstrates the resulting confusion matrix.                  
-                    </p> 
-                    <img class="img-responsive" src="assets/img/zero_shot_conf_mat.png" alt="Image" width="700">
-                    <p></p>
-                
-                    <p> As can be seen from the confusion matrix, either the label "Next" or "How are you?" was predicted for almost all of our testing instances. 
-                        A couple of instances were instead predicted as "I am sorry." or "Good bye.". With a total of 20 classes, the zero-shot accuracy is actually 
-                        equivalent to that of a random guesser (5%), which is definitely a really low accuracy.</p>
+                    <p> After assessing the zero-shot performance of the ViLT model in the <a href="https://nadine-amin.github.io/CNIT581-AST-blog/post5.html">previous blog post</a>,
+                        we moved on to fine-tune our ViLT model on our fine-tuning dataset (6200 instances) as described in <a href="https://nadine-amin.github.io/CNIT581-AST-blog/post4.html">blog post 4</a>.
+                        The figure below shows the loss curve during the fine-tuning process. As can be seen, the model was able to converge after around 1300 steps, which means
+                        that the remaining steps might have been unnecessary.
+                    </p>
+                    <img class="img-responsive" src="assets/img/fine_tuning_loss_curve.png" alt="Image" width="700">
                     <p></p>
                     
-                    <h4><strong>Next Steps</strong></h4> 
-                    <p> We are currently working on fine-tuning the pre-trained ViLT model on our fine-tuning dataset so that we can then re-evaluate its performance
-                        on our testing dataset. We will compare its performance with that of a random guesser and an encoder-decoder approach using CNN and LSTM.
-                        We will also discuss possible future directions that we believe might be worth pursuing.
+                    <p> As with the zero-shot experiment, we test the fine-tuned ViLT model on our testing dataset (1800 intances) in a multi-class classification problem
+                        with 20 classes (correspoding to the 20 different utterances in our dataset). The classificaiton accuracy was found to be 89.28%, which is a huge
+                        improvement over the zero-shot results. The below figure demonstrates the resulting confusion matrix.
+                    </p>
+                    <img class="img-responsive" src="assets/img/fine_tuned_conf_mat.png" alt="Image" width="700">
+                    <p></p>
+                    
+                    <p> We then compared our different testing results with those of our baselines: random guess and an encoder-decoder approach of a CNN and an LSTM by 
+                        <a href="http://cs231n.stanford.edu/reports/2016/pdfs/217_Report.pdf">Garg et al. (2016)</a>. The figure below shows a summary of that comparison.
+                        It seems like the fine-tuned ViLT model achieved a much higher accuracy compared to the baselines. However, there is a possibility that the model 
+                        might have overfitted.
+                    </p>
+                    <img class="img-responsive" src="assets/img/results_comparison.png" alt="Image" width="700">
+                    <p></p>
+                  
+                    <p> Check out our final demo video below where we perform several inferences using our fine-tuned ViLT model! From the video, we can see that the 
+                        average inference time is as small as about 141 ms!
+                    </p>
+                    <iframe width="560" height="315" src="https://www.youtube.com/embed/MNaj7UjbewI" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>                    
+                    <p></p>
+                    
+                    <h4><strong>Conclusions & Future Work</strong></h4> 
+                    <p> As we have seen, our fine-tuned ViLT model was able to achieve an overall accuracy of almost 90% in the lip-reading task with an inference time
+                        of about 150 ms. Although there is a possibility that the model has overfitted, this still demonstrates a great potential and hints that 
+                        multi-modal models should be capable of performing lip-reading. It is worth noting that a more simplified procedure for the data preprocessing 
+                        would be worth experimenting. In addition, this dataset might have been a little bit unbalanced. For instance, it has the following 3 utterances:
+                        "Stop", "Navigation", and "Stop navigation", which means that the utterance "Stop navigation" might have had a few more fine-tuning instances.
+                        
+                        From the above conclusions, we put forward the following potential future directions:
+                        <ul>
+                            <li>We need to check whether the ViLT model has overfitted.</li>
+                            <li>We can possibly try taking as input the video and directly perform 3D volume embedding in order to simplify the data preprocessing step.</li>
+                            <li>We should probably use a better dataset that not only contains more instances, more words and more phrases, but that is also more balanced.</li>
+                            <li>With this potential from the ViLT, other lightweight models should alo be investigated.</li>
+                            <li>We can move on to deploy the model onto portable devices.</li>
+                        </ul>
                     </p>
                                 
                 </div>
