@@ -68,7 +68,7 @@
                       several 90x90 pixel images of a certain participant while they are speaking out a certain utterance, one image per point in time. However, in order to input our 
                       data into the ViLT model, we would like to have one input image per instance. Consequently, we opted for concatenating, using 
                       <a href="https://note.nkmk.me/en/python-opencv-hconcat-vconcat-np-tile/">OpenCV</a>, all images resembling a certain utterance into one bigger image,
-                      transforming the temporal infromation into spacial one <a href="http://cs231n.stanford.edu/reports/2016/pdfs/217_Report.pdf">[1]</a>.
+                      transforming the temporal information into spacial one <a href="http://cs231n.stanford.edu/reports/2016/pdfs/217_Report.pdf">[1]</a>.
                     </p>
                     <p>                      
                       Since different utterances have different lengths and different participants have different speaking speeds, not all instances are actually
@@ -76,7 +76,7 @@
                       images <a href="http://cs231n.stanford.edu/reports/2017/pdfs/227.pdf">[2]</a>. Following <a href="http://cs231n.stanford.edu/reports/2016/pdfs/217_Report.pdf">[1]</a>, 
                       our final concatenated image for each instance is made up of 5x5 smaller images (90x90 pixels each). Hence, the final dimensions of each 
                       concatenated image is 450x450 pixels. For instances which are shorter than 25 images, instead of appending black images (pixel values of 0) at the 
-                      end of the sequence, we follow <a href="http://cs231n.stanford.edu/reports/2016/pdfs/217_Report.pdf">[1]</a> and strech out the sequence of images 
+                      end of the sequence, we follow <a href="http://cs231n.stanford.edu/reports/2016/pdfs/217_Report.pdf">[1]</a> and stretch out the sequence of images 
                       filling the empty slots with the nearest image. More specifically, if the original sequence (orig_seq) has a length of orig_len, then the ith image 
                       in the stretched sequence (stretch_seq) is given by the following equation adapted from <a href="http://cs231n.stanford.edu/reports/2016/pdfs/217_Report.pdf">[1]</a>.
                     </p>
